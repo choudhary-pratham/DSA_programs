@@ -11,7 +11,7 @@ void setvalue(struct myarray *a, int tsize, int usize)
 {
     a->total_size = tsize;
     a->used_size = usize;
-    a->ptr = (int *)malloc((a->used_size) * sizeof(int));
+    a->ptr = (int *)malloc((a->total_size) * sizeof(int));
     int i, n = a->used_size;
     for (i = 0; i < n; i++)
     {
