@@ -84,7 +84,7 @@ int main()
     push(s,9);
     push(s,10);
 
-    printf("popped value:%d\n",pop(s));
+    printf("popped value:%d\n",pop(s));// last in first out
     printf("popped value:%d\n",pop(s));
     printf("popped value:%d\n",pop(s));
     printf("popped value:%d\n",pop(s));
@@ -102,3 +102,19 @@ int main()
     }
     return 0;
 }
+// Output:
+// Checking isEmpty function before pushing values in the stack
+// The stack is empty
+// Value : 4 pushed successfully
+// Value : 5 pushed successfully
+// Value : 6 pushed successfully
+// Value : 7 pushed successfully
+// Value : 8 pushed successfully
+// Value : 9 pushed successfully
+// Stack Overflow!! Couldn't push value : 10
+// popped value:9
+// popped value:8
+// popped value:7
+// popped value:6
+// popped value:5
+// popped value:4
