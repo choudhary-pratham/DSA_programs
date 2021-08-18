@@ -140,37 +140,4 @@ int main()
     printf("Top value of the stack is %d\n", stacktop(s));
     printf("Bottom value of the stack is %d\n", stackbottom(s));
     return 0;
-    // Checking isEmpty function before pushing values in the stack
-    // The stack is empty
-    // Value : 4 pushed successfully
-    // Value : 5 pushed successfully
-    // Value : 6 pushed successfully
-    // Value : 7 pushed successfully
-    // Value : 8 pushed successfully
-    // Value : 9 pushed successfully
-    // Stack Overflow!! Couldn't push value : 10
-    // popped value:9
-    // popped value:8
-    // popped value:7
-    // popped value:6
-    // popped value:5
-    // popped value:4
-
-    // Checking isFull function after entering values in the stack
-    // Stack is not full
-    // Value : 44 pushed successfully
-    // Value : 55 pushed successfully
-    // Value : 64 pushed successfully
-    // Value : 72 pushed successfully
-    // Value : 88 pushed successfully
-    // Value : 99 pushed successfully
-    // Stack Overflow!! Couldn't push value : 104
-    // value at index 1 is 99
-    // value at index 2 is 88
-    // value at index 3 is 72
-    // value at index 4 is 64
-    // value at index 5 is 55
-    // value at index 6 is 44
-    // Top value of the stack is 99
-    // Bottom value of the stack is 44
 }
