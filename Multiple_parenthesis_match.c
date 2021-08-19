@@ -83,7 +83,7 @@ int match_character(char open, char close)
 int multiple_parenthesis_match(char *exp)
 {
     char popped_char;
-    struct stack *sp;
+    struct stack *sp = (struct stack *)malloc(sizeof(struct stack));
     sp->size = strlen(exp);
     sp->top = -1;
     sp->arr = (char *)malloc(sp->size * sizeof(char));
