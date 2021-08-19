@@ -61,7 +61,7 @@ struct Node *push(struct Node *top, int data)
 
 // int pop(struct Node **top)// if we are declaring top locally
 // {
-//     if(isFull(*top))
+//     if(isEmpty(*top))
 //     {
 //         printf("Stack underflow\n");
 //     }
@@ -76,7 +76,7 @@ struct Node *push(struct Node *top, int data)
 // }
 int pop(struct Node *tp) //--------> for global declaration of top.
 {
-    if (isFull(tp))
+    if (isEmpty(tp))
     {
         printf("Stack underflow\n");
     }
