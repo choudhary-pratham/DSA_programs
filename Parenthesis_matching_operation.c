@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
 
 struct stack
 {
@@ -61,7 +62,7 @@ int parenthesis_match(char *exp)
 {
     struct stack *sp;
     // Initialised my stack where i need to put my '(' bracket
-    sp->size = 100;
+    sp->size = strlen(exp);
     sp->top = -1;
     sp->arr = (char *)malloc(sp->size * (sizeof(char)));
     for (int i = 0; exp[i] != '\0'; i++)
