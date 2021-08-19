@@ -60,7 +60,7 @@ void pop(struct stack *sp)
 
 int parenthesis_match(char *exp)
 {
-    struct stack *sp;
+    struct stack *sp = (struct stack *)malloc(sizeof(struct stack));
     // Initialised my stack where i need to put my '(' bracket
     sp->size = strlen(exp);
     sp->top = -1;
@@ -94,7 +94,7 @@ int parenthesis_match(char *exp)
 }
 int main()
 {
-    char *exp = ")("; // Parenthesis matching only checks the parenthesis. It will
+    char *exp = "()"; // Parenthesis matching only checks the parenthesis. It will
                        // return True even if the expression doesnot validate.
                        // eg - ((8)(*9))---> This equation has balanced parenthesis 
                        // but the Expression is invalid.
