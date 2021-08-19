@@ -54,7 +54,7 @@ int pop(struct stack *s) // Time complexity = O(1)
     }
     else
     {
-        int val = s->arr[s->top--];
+        int val = s->arr[s->top];
         s->top = s->top--;
         return val;
     }
