@@ -80,13 +80,16 @@ int last_value(struct queue *q)
 
 int peek(struct queue *q, int pos)
 {
-
     return q->arr[pos];
 }
 
 int main()
 {
-    struct queue *q = (struct queue *)malloc(sizeof(struct queue));
+    struct queue *q = (struct queue *)malloc(sizeof(struct queue));// NOTE: we are using a
+                                                                    //structure pointer so we are passing
+                                                                    //the pointer directly in to the function
+                                                                    //if we are using an object then we
+                                                                    //need to pass the address of the object
     q->size = 10;
     q->f = q->r = -1;
     q->arr = (int *)malloc(q->size * sizeof(int));
@@ -111,7 +114,7 @@ int main()
     printf("First value of queue :%d\n", first_value(q));
     printf("Last value of queue :%d\n", last_value(q));
 
-    for (int i = q->f +1 ; i <= q->r; i++)
+    for (int i = q->f + 1; i <= q->r; i++)
     {
         static int p = 1;
         printf("Value at position %d is %d\n", p, peek(q, i));
