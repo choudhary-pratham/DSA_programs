@@ -56,7 +56,7 @@ int dequeue(struct circularqueue *q)
     else
     {
         int val = -1;
-        q->f = q->f + 1;
+        q->f = ((q->f + 1) % (q->size));
         val = q->arr[q->f];
         return val;
     }
