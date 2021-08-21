@@ -93,7 +93,22 @@ int main()
     printf("Element removed : %d \n", dequeue(cq));
     printf("Element removed : %d \n", dequeue(cq));
     printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
+    printf("Element removed : %d \n", dequeue(cq));
 
+    cq->f = 0;
+    enqueue(cq, 10);
+    enqueue(cq, 20);
+    enqueue(cq, 30);
+    enqueue(cq, 40);
+    enqueue(cq, 50);
+    enqueue(cq, 60);
+    enqueue(cq, 70);
     enqueue(cq, 80);
     enqueue(cq, 90);
     enqueue(cq, 100);
