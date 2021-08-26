@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void printArray(int *A, int n)
 {
@@ -9,63 +10,62 @@ void printArray(int *A, int n)
     printf("\n");
 }
 
-int partition(int A[], int low, int high)
+void Swap(int *a, int *b)
 {
-    int pivot = A[low];
-    int i = low + 1;
-    int j = high;
-    int temp;
+    int temp = 0;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
+int partition(int arr[], int low, int high)
+{
+    int pivot, i, j;
+    pivot = arr[low];
+    i = low + 1;
+    j = high;
     do
     {
-        while (A[i] <= pivot)
+        while (arr[i] <= pivot)
         {
             i++;
         }
-
-        while (A[j] > pivot)
+        while (arr[j] > pivot)
         {
             j--;
         }
-
         if (i < j)
         {
-            temp = A[i];
-            A[i] = A[j];
-            A[j] = temp;
+            Swap(&arr[i], &arr[j]);
         }
     } while (i < j);
-
-    // Swap A[low] and A[j]
-    temp = A[low];
-    A[low] = A[j];
-    A[j] = temp;
+    Swap(&arr[j], &arr[low]);
     return j;
 }
 
-void quickSort(int A[], int low, int high)
+void Quick_sort(int arr[], int low, int high)
 {
-    int partitionIndex; // Index of pivot after partition
-
+    int partition_index;
     if (low < high)
     {
-        partitionIndex = partition(A, low, high); 
-        quickSort(A, low, partitionIndex - 1);  // sort left subarray 
-        quickSort(A, partitionIndex + 1, high); // sort right subarray
+        partition_index = partition(arr, low, high);
+        Quick_sort(arr, low, partition_index - 1);
+        Quick_sort(arr, partition_index + 1, high);
     }
 }
 
 int main()
 {
-    //int A[] = {3, 5, 2, 13, 12, 3, 2, 13, 45};
-    int A[] = {9, 4, 4, 8, 7, 5, 6};
-    // 3, 5, 2, 13, 12, 3, 2, 13, 45
-    // 3, 2, 2, 13i, 12, 3j, 5, 13, 45
-    // 3, 2, 2, 3j, 12i, 13, 5, 13, 45 --> first call to partition returns 3
-    int n = 9;
-    n =7;
-    printArray(A, n);
-    quickSort(A, 0, n - 1);
-    printArray(A, n);
+    int n;
+    printf("Enter the number of elements you want to enter in the array: \n");
+    scanf("%d", &n);
+    int *arr = (int *)malloc(n * sizeof(int));
+    printf("Enter element in an array :");
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
+    Quick_sort(arr, 0, n - 1);
+    printArray(arr, n);
     return 0;
 }
