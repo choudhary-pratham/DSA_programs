@@ -50,8 +50,49 @@ int isBST(struct Node *root) // For a BT to be a BST the inorder traversal must 
     return 1;
 }
 
+struct Node *search_node_recursive(struct Node *root, int value)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    else if (root->data == value)
+    {
+        return root;
+    }
+    else if (root->data > value)
+    {
+        return search_node_recursive(root->left, value);
+    }
+    else
+    {
+        return search_node_recursive(root->right, value);
+    }
+}
+
+struct Node *search_node_iterative(struct Node *root, int value)
+{
+    while (root != NULL)
+    {
+        if (root->data == value)
+        {
+            return root;
+        }
+        else if (root->data > value)
+        {
+            root = root->left;
+        }
+        else
+        {
+            root = root->right;
+        }
+    }
+    return NULL;
+}
+
 int main()
 {
+    int val;
     struct Node *p = createNode(5);
     struct Node *p1 = createNode(3);
     struct Node *p2 = createNode(6);
@@ -75,6 +116,27 @@ int main()
     else
     {
         printf("It is not a binary search tree");
+    }
+
+    printf("Enter the value you want to search for :");
+    scanf("%d", &val);
+
+    // if(search_node_recursive(p,val))
+    // {
+    //     printf("Element is present \n");
+    // }
+    // else
+    // {
+    //     printf("Element is not present");
+    // }
+
+    if (search_node_iterative(p, val))
+    {
+        printf("Element is present \n");
+    }
+    else
+    {
+        printf("Element is not present");
     }
     return 0;
 }
