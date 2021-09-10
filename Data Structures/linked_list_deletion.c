@@ -16,6 +16,14 @@ void linked_list_traversal(struct Node *ptr)
     }
 }
 
+struct Node *deleting_first_element(struct Node *head)
+{
+    struct Node *ptr = head;
+    head = head->next;
+    free(ptr);
+    return head;
+}
+
 struct Node *deleting_from_index(struct Node *head, int index)
 {
     struct Node *ptr = head;
@@ -28,6 +36,35 @@ struct Node *deleting_from_index(struct Node *head, int index)
     struct Node *q = ptr->next;
     ptr->next = q ->next;
     free(q);
+    return head;
+}
+
+struct Node *deleting_last_node(struct Node *head)
+{
+    struct Node *ptr = head;
+    struct Node *q = head;
+    while (ptr->next != NULL)
+    {
+        ptr = ptr->next;
+    }
+    while(q->next != ptr)
+    {
+        q = q->next;
+    }
+    q->next = NULL;
+    free(ptr);
+    return head;
+}
+
+struct Node *deleting_the_given_node(struct Node *head, struct Node *n)
+{
+    struct Node *ptr = head;
+    while (ptr->next != n)
+    {
+        ptr = ptr->next;
+    }
+    ptr->next = n->next;
+    free(n);
     return head;
 }
 
@@ -58,7 +95,7 @@ int main()
     printf("Before deletion\n");
     linked_list_traversal(head);
 
-    head = deleting_from_index(head, 2);
+    head = deleting_first_element(head);
 
     printf("After deletion\n");
     linked_list_traversal(head);

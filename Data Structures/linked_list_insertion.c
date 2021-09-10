@@ -24,6 +24,47 @@ struct Node *inserting_at_the_beginning(struct Node *head, int data)
     return ptr;
 }
 
+struct Node *inserting_at_an_index(struct Node *head, int index, int data)
+{
+    struct Node *ptr = (struct Node *)malloc(sizeof(struct Node));
+    ptr->data = data;
+    struct Node *p = head;
+    int i = 0;
+    while (i != (index - 1))
+    {
+        i++;
+        p = p->next;
+    }
+    ptr->next = p->next;
+    p->next = ptr;
+    return head;
+}
+
+struct Node *inserting_at_the_end(struct Node *head, int data)
+{
+    struct Node *ptr = (struct Node *)malloc(sizeof(struct Node));
+    ptr->data = data;
+    struct Node *p = head;
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    ptr->next = NULL;
+    p->next = ptr;
+    return head;
+}
+
+struct Node *inserting_after_node(struct Node *head, struct Node *n, int data)
+{
+    struct Node *ptr = (struct Node *)malloc(sizeof(struct Node));
+    ptr->data = data;
+
+    ptr->next = n->next;
+    n->next = ptr;
+    
+    return head;
+}
+
 int main()
 {
     struct Node *head;
