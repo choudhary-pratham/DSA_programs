@@ -5,7 +5,7 @@ using namespace std;
 
 class solution
 {
-    bool check_cycle(int i, int v, vector<int> &vis, vector<int> adj[]) //TC - O(N+E) AND SC = O(N+E) + O(N) + O(N)---->E is travelling through adjacent nodes
+    bool check_cycle(int i, vector<int> &vis, vector<int> adj[]) //TC - O(N+E) AND SC = O(N+E) + O(N) + O(N)---->E is travelling through adjacent nodes
     {
         queue<pair<int, int>> q;
         q.push({i, -1});
@@ -15,6 +15,7 @@ class solution
             int node, par;
             node = q.front().first;
             par = q.front().second;
+            q.pop();
             for (auto it : adj[node])
             {
                 if (!vis[it])
@@ -39,7 +40,7 @@ public:
         {
             if (!vis[i])
             {
-                if (check_cycle(i, v, vis, adj))
+                if (check_cycle(i, vis, adj))
                     return true;
             }
         }
@@ -60,14 +61,14 @@ int main()
         adj[v].push_back(u);
     }
     solution s;
-    if(s.iscycle(n,adj))
+    if (s.iscycle(n, adj))
     {
-        cout<<"This Graph contains a cycle";
+        cout << "This Graph contains a cycle";
     }
 
     else
     {
-        cout<<"This Graph does not contain a cycle";
+        cout << "This Graph does not contain a cycle";
     }
     return 0;
 }
