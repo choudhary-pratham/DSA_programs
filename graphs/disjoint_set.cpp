@@ -25,6 +25,8 @@ int findpar(int node)
 
 void union_(int u, int v)
 {
+    u = findpar(u);
+    v = findpar(v);
     if (r[u] < v)
     {
         parent[u] = v;
