@@ -135,7 +135,7 @@ char *infix_to_postfix(char *infix_exp)
 
 int main()
 {
-    char *infix_exp = "x+y*z";
+    char *infix_exp = "a+b*c-d/e-f*g*h";
     printf("The postfix expression of the corresponding infix expression is %s\n", infix_to_postfix(infix_exp));
     return 0;
 }
