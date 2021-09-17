@@ -3,6 +3,9 @@
 #include <cstring>
 using namespace std;
 
+// time complexity=O(N+E)
+// space complexity=O(N+E) + O(N) + O(N)
+
 class solution
 {
     bool check_cycle(int node, int vis[], int dfsvis[], vector<int> adj[])
@@ -50,22 +53,22 @@ public:
 int main()
 {
     int n, m;
-    cin>>n>>m;
-    vector<int>adj[n+1];
-    for(int i = 0;i<m;i++)
+    cin >> n >> m;
+    vector<int> adj[n + 1];
+    for (int i = 0; i < m; i++)
     {
-        int u,v;
-        cin>>u>>v;
+        int u, v;
+        cin >> u >> v;
         adj[u].push_back(v);
     }
     solution s;
-    if(s.iscycle(n,adj))
+    if (s.iscycle(n, adj))
     {
-        cout<<"Yes";
+        cout << "Yes";
     }
     else
     {
-        cout<<"No";
+        cout << "No";
     }
     return 0;
 }
