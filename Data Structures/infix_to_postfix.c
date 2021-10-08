@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 struct stack
 {
@@ -33,48 +34,37 @@ int isFull(struct stack *sp)
     }
 }
 
-int push(struct stack *sp, char c)
+void push(struct stack *s, char val) // Time complexity = O(1)
 {
-    if (isFull(sp))
+    if (isFull(s))
     {
-        return 1;
+        printf("Stack Overflow!! Couldn't push value : %d\n", val);
     }
     else
     {
-        sp->top++;
-        sp->arr[sp->top] = c;
+        s->top++;
+        s->arr[s->top] = val;
+        // printf("Value : %d pushed successfully\n", val);
     }
 }
 
-int pop(struct stack *sp)
+char pop(struct stack *s) // Time complexity = O(1)
 {
-    if (isEmpty(sp))
+    if (isEmpty(s))
     {
-        return 1;
+        printf("Stack underflow!!\n");
     }
     else
     {
-        char val = sp->arr[sp->top];
-        sp->top--;
+        char val = s->arr[s->top];
+        s->top--;
         return val;
     }
 }
 
-int stacktop(struct stack *sp)
+char stacktop(struct stack *sp)
 {
     return sp->arr[sp->top];
-}
-
-int isoperator(char c)
-{
-    if (c == '+' || c == '-' || c == '*' || c == '/')
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
 }
 
 int precedence(char c)
@@ -104,7 +94,7 @@ char *infix_to_postfix(char *infix_exp)
     int j = 0; // variable to traverse through my postfix expression
     while (infix_exp[i] != '\0')
     {
-        if (!isoperator(infix_exp[i]))
+        if (isdigit(infix_exp[i]) || isalpha(infix_exp[i]))
         {
             postfix_exp[j] = infix_exp[i];
             i++;
@@ -112,7 +102,21 @@ char *infix_to_postfix(char *infix_exp)
         }
         else
         {
-            if (!(precedence(infix_exp[i]) > precedence(stacktop(sp))))
+            if (infix_exp[i] == '(')
+            {
+                push(sp, infix_exp[i]);
+                i++;
+            }
+            else if (infix_exp[i] == ')')
+            {
+                while (sp->arr[sp->top] != '(')
+                {
+                    postfix_exp[j++] = pop(sp);
+                }
+                pop(sp);
+                i++;
+            }
+            else if (!(precedence(infix_exp[i]) > precedence(stacktop(sp))))
             {
                 postfix_exp[j] = pop(sp);
                 j++;
@@ -135,7 +139,7 @@ char *infix_to_postfix(char *infix_exp)
 
 int main()
 {
-    char *infix_exp = "a+b*c-d/e-f*g*h";
+    char *infix_exp = "(a*b)+(c*d)";
     printf("The postfix expression of the corresponding infix expression is %s\n", infix_to_postfix(infix_exp));
     return 0;
 }
