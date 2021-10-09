@@ -1,9 +1,3 @@
-/*
-                1
-            2       3
-        4       5
-            6
-    */
 #include <bits/stdc++.h>
 using namespace std;
 struct node
@@ -39,7 +33,6 @@ void rec_preorder(struct node *root) // TC - O(N) | SC - O(N)
     rec_preorder(root->left);
     rec_preorder(root->right);
 }
-
 
 void rec_inorder(struct node *root) // TC - O(N) | SC - O(N)
 {
@@ -99,30 +92,36 @@ int main()
     root->left->right->left = new node(6);
 
     rec_preorder(root);
-    cout<<endl;
+    cout << endl;
     rec_inorder(root);
-    cout<<endl;
+    cout << endl;
     rec_postorder(root);
-    cout<<endl;
+    cout << endl;
 
-    vector<vector<int>>arr = levelOrder(root);
-    for(int i=0;i<arr.size();i++)
+    vector<vector<int>> arr = levelOrder(root);
+    for (int i = 0; i < arr.size(); i++)
     {
-        for(int j=0;j<arr[i].size();j++)
+        for (int j = 0; j < arr[i].size(); j++)
         {
-            cout<<arr[i][j]<<" ";
+            cout << arr[i][j] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
     // or
-    for(auto iter:arr)
+    for (auto iter : arr)
     {
-        for(auto it:iter)
+        for (auto it : iter)
         {
-            cout<<it<<" ";
+            cout << it << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 
     return 0;
 }
+/*
+                1
+            2       3
+        4       5
+            6
+*/
