@@ -45,6 +45,13 @@ int main()
     q->right->left = new node(15);
     q->right->right = new node(7);
 
-    cout << is_identical(p, q);
+    if(is_identical(p, q))
+    {
+        cout<<"Same"<<endl;
+    }
+    else
+    {
+        cout<<"Not Same"<<endl;
+    }
     return 0;
 }
