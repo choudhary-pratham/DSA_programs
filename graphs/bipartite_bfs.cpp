@@ -63,11 +63,11 @@ int main()
     solution s;
     if (s.isbipartite(n, adj))
     {
-        cout << "Yes";
+        cout << "Yes it is a bipartite graph and has an even length cycle";
     }
     else
     {
-        cout << "No";
+        cout << "No it is a not  bipartite graph and has an odd length cycle";
     }
     return 0;
 }
