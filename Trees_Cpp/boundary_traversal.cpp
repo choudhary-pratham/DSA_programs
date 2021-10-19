@@ -26,14 +26,15 @@ struct node
 };
 bool isLeaf(struct node *root)
 {
-    if (root->left == NULL && root->right == NULL)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    // if (root->left == NULL && root->right == NULL)
+    // {
+    //     return true;
+    // }
+    // else
+    // {
+    //     return false;
+    // }
+    return root->left == root->right;
 }
 void left_boundary(node *root, vector<int> &ans)
 {
