@@ -38,43 +38,23 @@ vector<vector<int>> zztrav(node *root)
     {
         int size = q.size();
         vector<int> level;
-        if (flag == 0)
+        for (int i = 0; i < size; i++)
         {
-            for (int i = 0; i < size; i++)
+            node *nd = q.front();
+            q.pop();
+            if (nd->left != NULL)
             {
-                node *nd = q.front();
-                q.pop();
-                if (nd->left != NULL)
-                {
-                    q.push(nd->left);
-                }
-                if (nd->right != NULL)
-                {
-                    q.push(nd->right);
-                }
-                level.push_back(nd->data);
+                q.push(nd->left);
             }
-            flag = 1;
-        }
-        else if(flag == 1)
-        {
-            for (int i = 0; i < size; i++)
+            if (nd->right != NULL)
             {
-                node *nd = q.front();
-                q.pop();
-                if (nd->left != NULL)
-                {
-                    q.push(nd->left);
-                }
-                if (nd->right != NULL)
-                {
-                    q.push(nd->right);
-                }
-                level.push_back(nd->data);
+                q.push(nd->right);
             }
-            reverse(level.begin(),level.end());
-            flag = 0;
+            level.push_back(nd->data);
         }
+        if (flag % 2 != 0)
+            reverse(level.begin(), level.end());
+        flag++;
         ans.push_back(level);
     }
     return ans;
@@ -82,13 +62,13 @@ vector<vector<int>> zztrav(node *root)
 
 int main()
 {
-    struct node *root = new node(-10);
-    root->left = new node(9);
-    root->right = new node(20);
-    root->right->left = new node(15);
+    node *root = new node(1);
+    root->left = new node(2);
+    root->right = new node(3);
+    root->left->left = new node(4);
+    root->left->right = new node(5);
+    root->right->left = new node(6);
     root->right->right = new node(7);
-    root->right->left->left = new node(22);
-    root->right->right->right = new node(-6);
     vector<vector<int>> ans = zztrav(root);
     for (auto iter : ans)
     {
