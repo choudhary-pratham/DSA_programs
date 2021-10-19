@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
+// TC - O(N)
+// SC - O(N)
 struct node
 {
     int data;
