@@ -2,60 +2,89 @@
 using namespace std;
 // time complexity - O(4alpha) = constant
 // space complexity - O(2N)
-int r[100000];
-int parent[100000];
-
-void makeset(int n)
+class DSU
 {
-    for (int i = 1; i <= n; i++)
+private:
+    vector<int>parent,size,rank;
+public:
+    DSU(int n)
     {
-        r[i] = 0;
-        parent[i] = i;
+        for(int i=0;i<=n;i++)
+        {
+            parent.push_back(i);
+            size.push_back(1);
+            rank.push_back(0);
+        }
     }
-}
-
-int findpar(int node)
-{
-    if (node == parent[node])
+    int findpar(int node)
     {
-        return node;
+        if(parent[node] == node)
+        {
+            return node;
+        }
+        return parent[node] = findpar(parent[node]);
     }
-    return parent[node] = findpar(parent[node]);
-}
-
-void union_(int u, int v)
-{
-    u = findpar(u);
-    v = findpar(v);
-    if (r[u] < v)
+    void unionSize(int a,int b)
     {
-        parent[u] = v;
+        int pa = findpar(a);
+        int pb = findpar(b);
+        if(pa == pb)
+        {
+            return;
+        }
+        else if(size[pa]<size[pb])
+        {
+            parent[pa] = pb;
+            size[pb]+=size[pa];
+        }
+        else if(size[pa]>size[pb])
+        {
+            parent[pb] = pa;
+            size[pa]+=size[pb];
+        }
+        else
+        {
+            parent[pb] = pa;
+            size[pa]+=size[pb];
+        }
     }
-
-    else if (r[u] > v)
+    void unionRank(int a,int b)
     {
-        parent[v] = u;
+        int pa = findpar(a);
+        int pb = findpar(b);
+        if(pa == pb)
+        {
+            return;
+        }
+        else if(rank[pa]<rank[pb])
+        {
+            parent[pa] = pb;
+        }
+        else if(rank[pa]>rank[pb])
+        {
+            parent[pb] = pa;
+        }
+        else if(rank[pa] == rank[pb])
+        {
+            parent[pb] = pa;
+            rank[pa]++;
+        }
     }
-
-    else
-    {
-        parent[u] = v;
-        r[v]++;
-    }
-}
+    
+};
 
 int main()
 {
     int n, m;
     cin >> n >> m;
-    makeset(n);
+    DSU dsu(n);
     while (m--)
     {
         int u, v;
         cin >> u >> v;
-        union_(u, v);
+        dsu.unionSize(u, v);
     }
-    if (findpar(2) != findpar(3))
+    if (dsu.findpar(2) != dsu.findpar(3))
     {
         cout << "They dont have the same parent node and hence they belong to different components";
     }
