@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-int GCD(int a,int b);
+int GCD(int a, int b);
+
 //Function to check whether a number is prime or not in O(sqrt(n))
 bool isprime(int n)
 {
@@ -25,23 +26,23 @@ bool isprime(int n)
 //Euler Totient Function phi(N) = count of total co-prime pairs,TC-O(sqrt(N))
 int phi(int n)
 {
-    int res=n;
-    for(int i=2;i*i<=n;i++)
+    int res = n;
+    for (int i = 2; i * i <= n; i++)
     {
-        if(n%i==0)
+        if (n % i == 0)
         {
-            res*=(i-1);
-            res/=i;
+            res *= (i - 1);
+            res /= i;
         }
-        while(n%i==0)
+        while (n % i == 0)
         {
-            n/=i;
+            n /= i;
         }
     }
-    if(n>1)
+    if (n > 1)
     {
-        res*=(n-1);
-        res/=n;
+        res *= (n - 1);
+        res /= n;
     }
     return res;
 }
@@ -49,10 +50,10 @@ int phi(int n)
 //Euler Totient Function phi(N) = count of total co-prime pairs,TC-O(Nlog(N))
 int Phi(int n)
 {
-    int cnt=0;
-    for(int i=1;i<n;i++)
+    int cnt = 0;
+    for (int i = 1; i < n; i++)
     {
-        if(GCD(i,n) == 1)
+        if (GCD(i, n) == 1)
         {
             cnt++;
         }
@@ -238,6 +239,52 @@ int factorial(int n)
     }
     return j;
 }
+
+// Function to calculate x^n in O(log(N)) time
+double myPow(double x, int n)
+{
+    double ans = 1.0;
+    long long nn = n;
+    if (nn < 0)
+        nn = -1 * nn;
+    while (nn)
+    {
+        if (nn % 2 == 1)
+        {
+            ans = ans * x;
+            nn--;
+        }
+        else
+        {
+            x = x * x;
+            nn /= 2;
+        }
+    }
+    if (n < 0)
+        ans = 1.0 / ans;
+    return ans;
+}
+
+/*
+    MODULAR ARITHMETIC-
+    - a is modular congruent to b under modular N if a%N = b%N
+    - if  a congruent(triple equal sign) b(mod N) then (a-b) is divisible by N i.e. (a-b)%N = 0
+    - (a+b+c)%N = (a%N + b%N + c%N)%N
+    - (a*b*c)%N = (a%N * b%N * c%N)%N
+    - if a*b = c
+      then (a%N) * (b%N) = (c%N)
+*/
+
+
+/*
+    MODULAR INVERSE-
+    - a.X = 1(modP) , where X = 1/b, and X is the modular inverse of the given number b
+    - for modular inverse of a number to exist GCD(b,P) = 1
+    - Eg-
+      (6/2)%5 = ((6%5)*(3%5))%5 [3 being the multiplicative inverse of 2 since 2*3%5 = 1]
+              = (1*3)%5 = 3
+*/
+
 
 void solve()
 {
