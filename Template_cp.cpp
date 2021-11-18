@@ -1,6 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define tc       \
+    ll t;        \
+    cin >> t;    \
+    while (t--)  \
+    {            \
+        solve(); \
+    }
+#define FASTIO                        \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL);
 int GCD(int a, int b);
 
 //Function to check whether a number is prime or not in O(sqrt(n))
@@ -266,6 +277,64 @@ double myPow(double x, int n)
 }
 
 /*
+    Fermat's Little theorem to calculate the modular inverse of a number.(given a and m ,where m is prime)
+    it states that-
+    a^(m-1)%m = 1,where m is a prime number
+    a^(m-2)%m = a^-1 ( dividing throughout by a), where a^-1 is the modular inverse of a number a,m is a prime number
+*/
+int myPow(int x, int n, int m)
+{
+    int ans = 1;
+    long long nn = n;
+    if (nn < 0)
+        nn = -1 * nn;
+    while (nn)
+    {
+        if (nn % 2 == 1)
+        {
+            ans = ((ans % m) * (x % m)) % m;
+            nn--;
+        }
+        else
+        {
+            x = ((x % m) * (x % m)) % m;
+            nn /= 2;
+        }
+    }
+    if (n < 0)
+        ans = 1.0 / ans;
+    return ans;
+}
+int fermat_little_theorem(int a, int m)
+{
+    int d = myPow(a, m - 2, m);
+    return d;
+}
+
+// Function to calculate the modular inverse of a number where given m is not prime.
+int mod_inverse(int a, int m)
+{
+    int res, x, y;
+    int gcd = EGCD(a, m, x, y);
+    if (gcd != 1)
+    {
+        return 0;
+    }
+    //To deal with negative x we add m to it
+    //ax+by = gcd(a,b)
+    // putting y=0, we get ax = 1(1 because to have a mul mod inv it should have 1 as its gcd)
+    //so , ax(mod m) = 1(mod m) 
+    // (a.x)%m = 1
+    // x%m = a^-1
+    res = (x % m + m) % m;
+    return res;
+}
+
+/*
+    CHINESE REMAINDER THEOREM-->
+    
+*/
+/*
     MODULAR ARITHMETIC-
     - a is modular congruent to b under modular N if a%N = b%N
     - if  a congruent(triple equal sign) b(mod N) then (a-b) is divisible by N i.e. (a-b)%N = 0
@@ -275,16 +344,14 @@ double myPow(double x, int n)
       then (a%N) * (b%N) = (c%N)
 */
 
-
 /*
     MODULAR INVERSE-
-    - a.X = 1(modP) , where X = 1/b, and X is the modular inverse of the given number b
+    - a(multiplied with)X = 1(modP) , where X is the modular inverse of the given number a
     - for modular inverse of a number to exist GCD(b,P) = 1
     - Eg-
-      (6/2)%5 = ((6%5)*(3%5))%5 [3 being the multiplicative inverse of 2 since 2*3%5 = 1]
+      (6/2)%5 = ((6%5)*(3%5))%5 [3 being the modular multiplicative inverse of 2 since 2*3%5 = 1]
               = (1*3)%5 = 3
 */
-
 
 void solve()
 {
@@ -293,14 +360,7 @@ void solve()
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    ll t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
+    FASTIO
+    tc
     return 0;
 }
