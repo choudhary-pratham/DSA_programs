@@ -12,6 +12,7 @@ using namespace std;
     ios_base::sync_with_stdio(false); \
     cin.tie(NULL);                    \
     cout.tie(NULL);
+#define MOD 1000000007
 int GCD(int a, int b);
 
 //Function to check whether a number is prime or not in O(sqrt(n))
@@ -58,7 +59,7 @@ int phi(int n)
     return res;
 }
 
-//Euler Totient Function phi(N) = count of total co-prime pairs,TC-O(Nlog(N))
+//Euler Totient Function phi(N) = count of total co-prime pairs such that GCD(x,N) = 1,TC-O(Nlog(N))
 int Phi(int n)
 {
     int cnt = 0;
@@ -275,6 +276,25 @@ double myPow(double x, int n)
         ans = 1.0 / ans;
     return ans;
 }
+/*
+    MODULAR ARITHMETIC-
+    - a is modular congruent to b under modular N if a%N = b%N
+    - if  a congruent(triple equal sign) b(mod N) then (a-b) is divisible by N i.e. (a-b)%N = 0
+    - (a+b+c)%N = (a%N + b%N + c%N)%N
+    - (a*b*c)%N = (a%N * b%N * c%N)%N
+    - if a*b = c
+      then (a%N) * (b%N) = (c%N)
+*/
+
+/*
+    MODULAR INVERSE-
+    - a(multiplied with)X = 1(modP) , where X is the modular inverse of the given number a
+    - for modular inverse of a number to exist GCD(b,P) = 1
+    - Eg-
+      (6/2)%5 = ((6%5)*(3%5))%5 [3 being the modular multiplicative inverse of 2 since 2*3%5 = 1]
+              = (1*3)%5 = 3
+*/
+
 
 /*
     Fermat's Little theorem to calculate the modular inverse of a number.(given a and m ,where m is prime)
@@ -282,9 +302,9 @@ double myPow(double x, int n)
     a^(m-1)%m = 1,where m is a prime number
     a^(m-2)%m = a^-1 ( dividing throughout by a), where a^-1 is the modular inverse of a number a,m is a prime number
 */
-int myPow(int x, int n, int m)
+ll Power(ll x, ll n)
 {
-    int ans = 1;
+    ll ans = 1;
     long long nn = n;
     if (nn < 0)
         nn = -1 * nn;
@@ -292,22 +312,22 @@ int myPow(int x, int n, int m)
     {
         if (nn % 2 == 1)
         {
-            ans = ((ans % m) * (x % m)) % m;
+            ans = ((ans%MOD) * (x%MOD))%MOD;
             nn--;
         }
         else
         {
-            x = ((x % m) * (x % m)) % m;
+            x = ((x%MOD) * (x%MOD))%MOD;
             nn /= 2;
         }
     }
     if (n < 0)
         ans = 1.0 / ans;
-    return ans;
+    return ans%MOD;
 }
 int fermat_little_theorem(int a, int m)
 {
-    int d = myPow(a, m - 2, m);
+    int d = myPow(a, m - 2);
     return d;
 }
 
@@ -332,27 +352,46 @@ int mod_inverse(int a, int m)
 
 /*
     CHINESE REMAINDER THEOREM-->
-    
+    We are given 2 arrays -->nums,rem(where both the arrays have co-prime pairs of numbers) and we are asked to find a number a such that->
+    a%num[i] = rem[i]
+    p is the product of all the elements of nums array.
 */
-/*
-    MODULAR ARITHMETIC-
-    - a is modular congruent to b under modular N if a%N = b%N
-    - if  a congruent(triple equal sign) b(mod N) then (a-b) is divisible by N i.e. (a-b)%N = 0
-    - (a+b+c)%N = (a%N + b%N + c%N)%N
-    - (a*b*c)%N = (a%N * b%N * c%N)%N
-    - if a*b = c
-      then (a%N) * (b%N) = (c%N)
-*/
+void CRT(int nums[],int rem[],int n)
+{
+    int p=1;
+    for(int i=0;i<n;i++)
+    {
+        p*=nums[i];
+    }
+    int temp=0,val=0;
+    for(int i=0;i<n;i++)
+    {
+        temp = rem[i]*(p/nums[i])*(mod_inverse((p/nums[i]),nums[i]));
+        val+=temp;
+    }
+    cout<<val%p<<endl;
+}
 
-/*
-    MODULAR INVERSE-
-    - a(multiplied with)X = 1(modP) , where X is the modular inverse of the given number a
-    - for modular inverse of a number to exist GCD(b,P) = 1
-    - Eg-
-      (6/2)%5 = ((6%5)*(3%5))%5 [3 being the modular multiplicative inverse of 2 since 2*3%5 = 1]
-              = (1*3)%5 = 3
-*/
+/* Finding Binomial coefficients */
+int F[1000001];
+void Binomial_coefficient()
+{
+    F[0] = F[1] = 1;
+    for(int i=2;i<=1000001;i++)
+    {
+        F[i] = (F[i-1]*1LL*i)%MOD;// we multiply by 1LL to prevent integer overflow for long values
+    }
+}
 
+ll Combinatorial(ll n,ll k)
+{
+    if(k>n) {return 0;}
+
+    ll res = F[n];
+    res = (res  * (Power(F[k],MOD-2)))%MOD;
+    res = (res * (Power(F[n-k],MOD-2)))%MOD;
+    return res%MOD;
+}
 void solve()
 {
     //write your code here
