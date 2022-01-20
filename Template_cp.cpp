@@ -392,6 +392,39 @@ ll Combinatorial(ll n,ll k)
     res = (res * (Power(F[n-k],MOD-2)))%MOD;
     return res%MOD;
 }
+/* -------------------------  ------------------------------------
+1.(num & (1<<i) != 0)----> To check for set bit
+2.(num | (1<<i)) -----> To set ith bit
+3.(num & (~(1<<i))) -----> To unset ith bit
+4.(num ^ (1<<i)) -----> To toggle the bit
+5.__builtin_popcountll(s)-->returns total number of set bits in int s
+*/
+
+string decimal_to_binary(int num)
+{
+    //converting a decimal to 10 bit binary string
+    string s;
+    for(int i = 10;i>=0;i--)
+    {
+        s += to_string(((num>>i)&1));
+    }
+    return s;
+}
+
+int binary_to_decimal(string s)
+{
+    int num=0;
+    reverse(s.begin(),s.end());
+    for(int i=0;i<s.size();i++)
+    {
+        if(((s[i]-'0')&1))
+        {
+            num+=(1<<i);
+        }
+    }
+    cout<<num<<endl;
+    return num;
+}
 void solve()
 {
     //write your code here
