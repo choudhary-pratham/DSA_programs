@@ -36,6 +36,7 @@ bool isprime(int n)
 }
 
 //Euler Totient Function phi(N) = count of total co-prime pairs,TC-O(sqrt(N))
+// phi(n) = n*(p1-1)/p1*(p2-1)/p2.........*(pk-1)/pk where p is the prime factors of number n
 int phi(int n)
 {
     int res = n;
@@ -330,7 +331,20 @@ int fermat_little_theorem(int a, int m)
     int d = myPow(a, m - 2);
     return d;
 }
-
+// recursive way
+int power_rec(int a,int b)
+{
+    if(b==0) return 1;
+    int res = power_rec(a,b/2);
+    if(b&1)
+    {
+        return (a*(1ll*res*res)%MOD)%MOD;
+    }
+    else
+    {
+        return (1ll*res*res)%MOD;
+    }
+}
 // Function to calculate the modular inverse of a number where given m is not prime.
 int mod_inverse(int a, int m)
 {
@@ -425,6 +439,47 @@ int binary_to_decimal(string s)
     cout<<num<<endl;
     return num;
 }
+/*
+if we want to convert lowercase to uppercase
+character & '_'
+if we want to convert uppercase to lowercase
+character | ' '
+** these can be used if we want to change a number into another **
+to unset upto ith bit from LSB
+number & (~((1<<i+1)-1))
+to unset upto ith bit from MSB
+number & ((1<<i+1)-1)
+** to check power of 2 **
+(n&(n-1)) non zero
+*/
+/*
+Property of XOR is to find the unique element
+if we perform the XOR operation with each element of the array then the final result
+will be the unique element present in the array
+*/
+/*
+swap:-
+a=a^b
+b=a^b
+a=a^b*/
+/*
+BIT Masking
+suppose there are 4 type of fruits:
+0
+1
+2
+3
+first person:- 2 3
+second person:- 1 2 3
+Third person:- 0 1
+if we are asked to find the common fruits or intersection between any 2 persons
+then we use BIT Masking like:
+first person:- 2 3 -------> setting the 2nd and 3rd bit--->1100
+second person:- 1 2 3--> 1110
+Third person:- 0 1--> 0011
+to find intersection simply take (&)AND operation between any persons
+Limitation:- Not to be used in questions where size is more than 64
+*/
 void solve()
 {
     //write your code here
