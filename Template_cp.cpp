@@ -74,9 +74,14 @@ int Phi(int n)
     return cnt;
 }
 
-// Function for sieve of eratosthenes to check for primes
+// Function for sieve of eratosthenes to check for primes , TC-O(nlog(log(n)))
 int N = 10000000;
 bool sieve[100000001];
+vector<int> hp(100000001,0),lp(100000001,0);
+/*
+hp - highest prime factor
+lp - lowest prime factor
+*/
 void create_sieve()
 {
     for (int i = 2; i <= N; i++)
@@ -88,14 +93,35 @@ void create_sieve()
     {
         if (sieve[i] == true)
         {
+            hp[i] = lp[i] = i;
             for (int j = i * i; j <= N; j += i)
             {
                 sieve[j] = false;
+                hp[j] = i;// The prime number in jth location replaces i as soon as it finds a greater prime number dividing it. Hence the value at the jth location gets changed every time and we get the highest number stored in the location.
+                if(lp[j] == 0)
+                {// The prime number in jth location replaces i (which was 0 initially)as soon as it finds the first prime number dividing it. Hence we get the smallest one.
+                    lp[j] = i;
+                }
             }
         }
     }
 }
-
+// finding prime factors in log n time by using sieve
+vector<int> findPrime_logN(int n)
+{
+    create_sieve();
+    vector<int>prime_factors;
+    while(n>1)
+    {
+        int p = hp[n];
+        while(n%p==0)
+        {
+            prime_factors.push_back(p);
+            n/=p;
+        }
+    }
+    return prime_factors;
+}
 //function to compute primes within sqrt(upper limit)
 vector<int> findPrimes(int n)
 {
