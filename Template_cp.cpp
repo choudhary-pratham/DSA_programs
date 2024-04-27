@@ -16,23 +16,18 @@ using namespace std;
 int GCD(int a, int b);
 
 //Function to check whether a number is prime or not in O(sqrt(n))
-bool isprime(int n)
+bool isPrime(int n)
 {
-    int cnt = 0;
-    for (int i = 2; i * i <= n; i++)
-    {
+    // Corner case
+    if (n <= 1)
+        return false;
+ 
+    // Check from 2 to square root of n
+    for (int i = 2; i <= sqrt(n); i++)
         if (n % i == 0)
-        {
-            cnt++;
-            if ((n / i) != i)
-            {
-                cnt++;
-            }
-        }
-    }
-    if (cnt == 2)
-        return true;
-    return false;
+            return false;
+ 
+    return true;
 }
 
 //Euler Totient Function phi(N) = count of total co-prime pairs,TC-O(sqrt(N))
